@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% from "_m.html" import hero, pic, cta with context %}{% block title %}Blog | Protein Veda{% endblock %}{% block body %}
+{{ hero('Blog','News and articles from Protein Veda.') }}
+<section><div class="wrap"><div class="pgrid">{% for p in posts %}<article class="pitem">{{ pic(p.cover,'blog.jpg',p.title) }}<div class="pb"><span class="cat">{{p.created[:10]}}</span><h3>{{p.title}}</h3><p>{{p.excerpt}}</p><div class="acts"><a class="btn s" href="/blog/{{p.slug}}">Read Article</a></div></div></article>{% else %}<p>No articles published yet. Please check back soon.</p>{% endfor %}</div></div></section>
+{{ cta('Questions about cattle feed?') }}{% endblock %}

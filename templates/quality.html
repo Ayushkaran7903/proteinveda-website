@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% from "_m.html" import hero, pic, cta with context %}{% block title %}Quality Assurance | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('Quality Assurance', s.quality_sub) }}
+<section><div class="wrap two" style="align-items:start"><div>{% for it in s.L('quality_items') %}<div class="block" style="grid-template-columns:1fr{% if loop.first %};border-top:0{% endif %}"><h2>{{it.title}}</h2>{{ it.text|paras }}</div>{% endfor %}</div><div>{{ pic(s.quality_image,'quality.jpg','Quality checking') }}</div></div></section>
+{{ cta(s.quality_cta) }}{% endblock %}

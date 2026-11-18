@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% from "_m.html" import pic with context %}{% block body %}
+<section class="hero" style="padding:0{% if s.hero_image %};background-image:url(/static/uploads/{{s.hero_image}}){% endif %}"><div class="wrap"><span class="eyebrow">{{s.hero_eyebrow}}</span>
+<h1>{{s.hero_title}}</h1><p>{{s.hero_text}}</p><a class="btn" href="/products">View Products</a><a class="btn ghost" href="/farmers-distributors">Become a Partner</a></div></section>
+<div class="strip"><div class="wrap">{% for x in s.strip_items.splitlines() if x.strip() %}<span>{{x}}</span>{% endfor %}</div></div>
+{% if s.show_about != "0" %}<section id="about"><div class="wrap two">{{ pic(s.about_image,'about.jpg','Dairy farm / cattle') }}
+<div><span class="eyebrow">{{s.about_eyebrow}}</span><h2>{{s.about_title}}</h2><p class="lead">{{s.intro}}</p><br><a class="btn" href="/about">About Us</a></div></div></section>{% endif %}
+{% if s.show_products != "0" %}<section id="products" class="white"><div class="wrap"><span class="eyebrow">{{s.products_eyebrow}}</span><h2>{{s.products_title}}</h2><p class="lead">{{s.products_text}}</p>
+<div class="plist">{% for p in products %}<div class="prow"><a class="home-product-photo" href="/products/{{p.slug}}" aria-label="Learn about {{p.name}}">{{ pic(p.image, "products/" ~ p.slug ~ ".jpg", p.name) }}</a><b>{{ '%02d' % loop.index }}</b><h3><a class="product-title-link" href="/products/{{p.slug}}">{{p.name}}</a></h3><em>{{p.category}}{% if p.protein %} &middot; {{p.protein}}{% endif %}</em><p>{{p.description}}</p><a href="/products/{{p.slug}}">View details</a></div>{% endfor %}</div>
+<p style="margin-top:28px"><a class="btn" href="/products">View All Products</a></p></div></section>{% endif %}
+{% if s.show_why != "0" %}<section id="why"><div class="wrap"><span class="eyebrow">{{s.why_eyebrow}}</span><h2>{{s.why_title}}</h2>
+<div class="why">{% for it in s.L('why_items') %}<div><h3>{{it.title}}</h3><p>{{it.text}}</p></div>{% endfor %}</div></div></section>{% endif %}
+{% if s.show_process != "0" %}<section id="process" class="dark"><div class="wrap"><span class="eyebrow">{{s.process_eyebrow}}</span><h2>{{s.process_title}}</h2><p class="lead">{{s.process_text}}</p>
+<div class="steps">{% for it in s.L('mfg_steps') %}<div><h3>{{it.title}}</h3><p>{{it.text}}</p></div>{% endfor %}</div><p style="margin-top:36px"><a class="btn ghost" href="/manufacturing">Our Manufacturing</a></p></div></section>{% endif %}
+{% if s.show_quality != "0" %}<section id="quality"><div class="wrap two"><div><span class="eyebrow">{{s.quality_eyebrow}}</span><h2>{{s.quality_title}}</h2><p class="lead">{{s.quality_text}}</p>
+<ul class="qlist">{% for x in s.home_quality_points.splitlines() if x.strip() %}<li>{{x}}</li>{% endfor %}</ul><p style="margin-top:26px"><a class="btn" href="/quality">Quality Assurance</a></p></div>{{ pic(s.quality_image,'quality.jpg','Quality checking') }}</div></section>{% endif %}
+{% if s.show_partners != "0" %}<section id="partners" class="white"><div class="wrap"><span class="eyebrow">{{s.partners_eyebrow}}</span><h2>{{s.partners_title}}</h2>
+<div class="partners">{% for it in s.L('partner_sections') %}<div><h3>{{it.eyebrow}}</h3><p>{{it.short}}</p><a href="/farmers-distributors?type={{it.kind|urlencode}}#enquiry">{{it.button or 'Send Enquiry'}} &rarr;</a></div>{% endfor %}</div></div></section>{% endif %}
+{% if s.show_contact != "0" %}<section id="contact"><div class="wrap two" style="align-items:start"><div class="cinfo"><span class="eyebrow">{{s.contact_eyebrow}}</span><h2>{{s.contact_title}}</h2><p class="lead" style="margin-bottom:28px">{{s.contact_text}}</p>
+<p><b>Factory</b>{{ s.address or 'Buxar, Bihar, India' }}</p>{% if s.phone %}<p><b>Phone</b>{{s.phone}}</p>{% endif %}{% if s.email %}<p><b>Email</b>{{s.email}}</p>{% endif %}
+{% if s.whatsapp %}<a class="btn wa" href="https://wa.me/{{s.whatsapp}}">Chat on WhatsApp</a>{% endif %}</div>
+<form class="enq" method="post" action="/inquiry">{% with m=get_flashed_messages() %}{% for x in m %}<div class="msg">{{x}}</div>{% endfor %}{% endwith %}
+<input type="hidden" name="t" value="{{token}}"><div class="form-trap" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div><input name="name" placeholder="Full name" required><input name="phone" placeholder="Phone number" required pattern="[0-9+ ]{10,15}">
+<select name="kind"><option>Farmer</option><option>Dairy Owner</option><option>Dealer</option><option>Distributor</option></select><textarea name="message" rows="4" placeholder="Your requirement"></textarea><button class="btn">Submit Enquiry</button></form></div></section>{% endif %}
+{% endblock %}

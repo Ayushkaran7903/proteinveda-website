@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}{% block title %}{{'Edit' if p else 'Add'}} Product{% endblock %}{% block content %}
+<h1>{{'Edit' if p else 'Add'}} Product</h1><p class="sub">Fill in what you know. Empty fields are simply not shown on the website.</p>
+<form method="post" enctype="multipart/form-data" class="box"><input type="hidden" name="t" value="{{token}}">
+{% if p and p.is_demo %}<div class="info"><b>This is demo (sample) content.</b> Replace the details below with your real product, then untick the box below.<label class="ck"><input type="checkbox" name="is_demo" checked> This is still demo content</label></div>{% endif %}<label>Product name *</label><input name="name" required value="{{p.name if p}}">
+<div class="grid2"><div><label>Category</label><input name="category" list="cats" value="{{p.category if p}}"><datalist id="cats">{% for c in cats %}<option value="{{c}}">{% endfor %}</datalist></div>
+<div><label>Availability</label><select name="availability">{% for a in avail %}<option {{'selected' if p and p.availability==a}}>{{a}}</option>{% endfor %}</select></div></div>
+<label>Description</label><textarea name="description" rows="4">{{p.description if p}}</textarea>
+<label>Short highlight (optional)</label><input name="protein" value="{{p.protein if p}}"><div class="help">Shown as a small tag. Only enter confirmed information.</div>
+<label>Packaging sizes</label><input name="packaging" value="{{p.packaging if p}}"><div class="help">Separate with commas. Example: 25 kg, 50 kg</div>
+<label>Specifications</label><div id="specs">{% for l,v in specs %}<div class="srow"><input name="sl" value="{{l}}" placeholder="Label (e.g. Form)"><input name="sv" value="{{v|trim}}" placeholder="Value"></div>{% endfor %}</div>
+<button type="button" class="btn s l" onclick="var d=document.createElement('div');d.className='srow';d.innerHTML='<input name=sl placeholder=Label><input name=sv placeholder=Value>';document.getElementById('specs').appendChild(d)">+ Add specification row</button>
+<label>Product photograph</label>{% if p and p.image %}<img class="pv" src="/static/uploads/{{p.image}}" alt=""><label class="ck"><input type="checkbox" name="remove_image"> Remove current photo</label>{% endif %}<input type="file" name="image" accept="image/*"><div class="help">JPG, PNG, WEBP or GIF.</div>
+<label class="ck"><input type="checkbox" name="active" {{'checked' if not p or p.active}}> Published (visible on website)</label>
+<label class="ck"><input type="checkbox" name="featured" {{'checked' if p and p.featured}}> Featured on homepage</label>
+<div class="acts" style="margin-top:18px"><button class="btn">Save Product</button><a class="btn l" href="/admin/products">Cancel</a></div></form>{% endblock %}

@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% from "_m.html" import hero, pic, cta with context %}{% block title %}{{p.title}} | Protein Veda{% endblock %}{% block body %}
+{{ hero(p.title, '', ('Blog','/blog')) }}
+<section><div class="wrap post">{% if p.cover %}{{ pic(p.cover,'',p.title) }}{% endif %}<p class="cat" style="margin-bottom:18px">{{p.created[:10]}}</p>{{ p.body|paras }}</div></section>
+{{ cta('Need help choosing the right feed?') }}{% endblock %}

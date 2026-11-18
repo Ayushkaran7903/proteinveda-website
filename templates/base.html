@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% if pt %}{{pt}}{% else %}{% block title %}{{ s.company_name or 'Protein Veda' }} | Cattle Feed Manufacturer, Buxar, Bihar{% endblock %}{% endif %}</title>
+<meta name="description" content="{{ pd or s.description or 'Protein Veda, Buxar, Bihar: cattle feed manufacturer serving farmers, dairy owners, dealers and distributors.' }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ pt or (s.company_name or 'Protein Veda') }}">
+<meta property="og:description" content="{{ pd or s.description or 'Cattle feed manufacturer in Buxar, Bihar.' }}">
+<meta property="og:url" content="{{ canonical }}">
+{% if s.favicon %}<link rel="icon" href="/static/uploads/{{s.favicon}}">{% endif %}
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css"></head><body>{% if preview %}<div class="pvbar">Preview mode: you are seeing unpublished changes that visitors cannot see. &nbsp; <a href="/admin">Back to admin</a> &nbsp; <a href="/admin/preview/exit">Exit preview</a></div>{% endif %}
+<div class="top"><div class="wrap"><span>Cattle Feed Manufacturer, Buxar, Bihar</span><span>{% if s.phone %}Call: <a href="tel:{{s.phone|replace(' ','')}}" style="text-decoration:none">{{s.phone}}</a>{% endif %}{% if s.email %} &nbsp;|&nbsp; {{s.email}}{% endif %}</span></div></div>
+<header class="nav"><div class="wrap"><a class="brand" href="/" aria-label="Protein Veda home"><img src="{{ '/static/uploads/' ~ s.logo if s.logo else '/static/logo.png' }}" alt="" onerror="this.remove()">{{ s.company_name or 'Protein Veda' }}</a>
+<input type="checkbox" id="tg"><label for="tg" class="burger" aria-label="Toggle navigation menu">&#9776;</label>
+<nav class="menu" aria-label="Main navigation"><a href="/about">About</a><a href="/products">Products</a><a href="/manufacturing">Manufacturing</a><a href="/quality">Quality</a><a href="/farmers-distributors">Farmers &amp; Distributors</a><a href="/gallery">Gallery</a><a href="/blog">Blog</a><a class="btn" href="/contact">Contact</a></nav></div></header>
+{% block body %}{% endblock %}
+<footer><div class="wrap"><div class="cols"><div><h3>{{ s.company_name or 'Protein Veda' }}</h3><p style="max-width:340px">{{ s.description or 'Cattle feed manufacturing company based in Buxar, Bihar, India.' }}</p></div>
+<div><h3>Explore</h3><a href="/about">About Us</a><a href="/products">Products</a><a href="/manufacturing">Manufacturing</a><a href="/quality">Quality Assurance</a><a href="/farmers-distributors">Farmers &amp; Distributors</a><a href="/gallery">Gallery</a><a href="/blog">Blog</a></div>
+<div><h3>Contact</h3><a href="/contact">{{s.address or 'Buxar, Bihar, India'}}</a>{% if s.phone %}<a href="tel:{{s.phone|replace(' ','')}}">{{s.phone}}</a>{% endif %}{% if s.email %}<a href="mailto:{{s.email}}">{{s.email}}</a>{% endif %}<a href="/contact">Contact Us</a>
+{% for n,u in [('Facebook',s.facebook),('Instagram',s.instagram),('YouTube',s.youtube)] if u %}<a href="{{u}}" target="_blank" rel="noopener">{{n}}</a>{% endfor %}</div></div>
+<div class="copy">{{ s.footer_text or ('© ' ~ (s.company_name or 'Protein Veda') ~ '. All rights reserved.') }} &nbsp;|&nbsp; <a href="/admin" style="display:inline">Admin</a></div></div></footer></body></html>

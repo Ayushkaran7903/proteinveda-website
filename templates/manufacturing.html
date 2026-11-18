@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% from "_m.html" import hero, pic, cta with context %}{% block title %}Manufacturing | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('Manufacturing', s.mfg_sub) }}
+<section><div class="wrap">{% for it in s.L('mfg_steps') %}<div class="stage"><b>{{ '%02d' % loop.index }}</b><div><h2 style="font-size:1.7rem">{{it.title}}</h2>{{ it.text|paras }}</div>{{ pic(it.image,'manufacturing/stage-' ~ loop.index ~ '.jpg', it.title) }}</div>{% endfor %}</div></section>
+{{ cta(s.mfg_cta) }}{% endblock %}

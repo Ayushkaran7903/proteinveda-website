@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% from "_m.html" import hero, slot, pic, wa, cta with context %}{% block title %}{{p.name}} | Protein Veda{% endblock %}{% block body %}
+{{ hero(p.name, '', ('Products','/products')) }}
+<section><div class="wrap two pd" style="align-items:start"><div>{{ pic(p.image,'products/' ~ p.slug ~ '.jpg', p.name) }}</div>
+<div><span class="cat">{{p.category}}</span> {% if p.is_demo %}<span class="sample-note">Sample product information</span>{% endif %} <span class="pill">{{p.availability or 'In Stock'}}</span><h1>{{p.name}}</h1><p class="lead">{{p.description or 'Contact us for detailed product information.'}}</p>
+<div class="acts" style="margin:22px 0 36px"><a class="btn" href="/contact?product={{p.name|urlencode}}">Enquire About This Product</a>{{ wa('Hello Protein Veda, I would like to enquire about ' ~ p.name ~ '.') }}</div>
+<h3>About this product</h3>
+<p>{{p.description or 'Product information will be updated after verification with the Protein Veda team.'}}</p>
+<h3>Packaging</h3>{% if p.packaging %}<div class="chips">{% for x in p.packaging.split(',') %}<span>{{x.strip()}}</span>{% endfor %}</div>{% else %}<p class="tbd">Pack sizes are available on request. Please send an enquiry.</p>{% endif %}
+<h3>Specifications</h3><table class="spec"><tr><th>Category</th><td>{{p.category}}</td></tr>{% if p.protein %}<tr><th>Highlight</th><td>{{p.protein}}</td></tr>{% endif %}
+{% for l in p.specs.splitlines() if ':' in l %}<tr><th>{{l.split(':',1)[0]}}</th><td>{{l.split(':',1)[1].strip()}}</td></tr>{% endfor %}
+{% if not p.specs %}<tr><th>Detailed specifications</th><td>Pending verification. Please contact Protein Veda for the latest product data.</td></tr>{% endif %}</table>
+<div class="product-guide"><h3>How to choose and use this product</h3><p>Check the product label and confirm suitability for your animal's age, species and feeding requirements. Feeding quantity and transition instructions depend on the verified formulation. Contact our team for current guidance.</p><p>For ingredient composition, guaranteed analysis, storage conditions and shelf life, request the latest verified product information.</p></div>
+{% if education %}<div class="product-education">
+<h3>Product knowledge guide</h3>
+<p class="education-disclaimer"><strong>General educational information only.</strong> This sample listing does not confirm Protein Veda's actual ingredients, nutritional values, performance claims or feeding directions.</p>
+<h4>What is this type of feed?</h4><p>{{education.what}}</p>
+<h4>What to check before choosing</h4><ul>{% for item in education.check %}<li>{{item}}</li>{% endfor %}</ul>
+<h4>Questions to ask Protein Veda</h4><ul>{% for item in education.questions %}<li>{{item}}</li>{% endfor %}</ul>
+<p>For individual feeding quantities or diet changes, consult a qualified veterinarian or animal nutritionist. Always follow the verified label.</p>
+</div>{% endif %}
+<div class="product-help"><h3>Questions about {{p.name}}?</h3><p>Ask about pack availability, product specifications, pricing or distribution.</p><div class="acts"><a class="btn" href="/contact?product={{p.name|urlencode}}">Ask a Question</a>{{ wa('Hello Protein Veda, please share verified details, price and availability for ' ~ p.name ~ ' (' ~ (p.packaging or 'pack size on request') ~ ').') }}</div></div>
+</div></div></section>
+{% if related %}<section class="white"><div class="wrap"><h2>More in {{p.category}}</h2><div class="pgrid">{% for r in related %}<article class="pitem">{{ pic(r.image,'products/' ~ r.slug ~ '.jpg', r.name) }}<div class="pb"><h3>{{r.name}}</h3><div class="acts"><a class="btn s" href="/products/{{r.slug}}">View Details</a></div></div></article>{% endfor %}</div></div></section>{% endif %}
+{{ cta('Interested in ' ~ p.name ~ '?') }}{% endblock %}

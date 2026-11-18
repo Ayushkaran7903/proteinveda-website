@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% from "_m.html" import hero, enqform with context %}{% block title %}Farmers & Distributors | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('Farmers & Distributors', s.partners_sub) }}
+<section><div class="wrap">{% for it in s.L('partner_sections') %}<div class="block" id="{{ it.kind|lower|replace(' ','-') }}s"{% if loop.first %} style="border-top:0"{% endif %}><div><span class="eyebrow">{{it.eyebrow}}</span><h2>{{it.title}}</h2></div>
+<div>{{ it.text|paras }}{% if it.benefits.strip() %}<ul class="qlist" style="margin:0 0 20px">{% for x in it.benefits.splitlines() if x.strip() %}<li>{{x}}</li>{% endfor %}</ul>{% endif %}<a class="btn" href="/farmers-distributors?type={{it.kind|urlencode}}#enquiry">{{it.button or 'Send Enquiry'}}</a></div></div>{% endfor %}</div></section>
+<section class="white"><div class="wrap two" style="align-items:start"><div><span class="eyebrow">{{s.enquiry_eyebrow}}</span><h2>{{s.enquiry_title}}</h2><p class="lead">{{s.enquiry_text}}</p></div>{{ enqform('/farmers-distributors', request.args.get('type',''), '', True) }}</div></section>{% endblock %}

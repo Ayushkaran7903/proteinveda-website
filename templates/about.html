@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% from "_m.html" import hero, pic, cta with context %}{% block title %}About Us | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('About Us', s.about_sub) }}
+<section><div class="wrap two"><div>{{ pic(s.about_image,'about.jpg','Dairy farm / cattle') }}</div><div><span class="eyebrow">{{s.about_intro_eyebrow}}</span><h2>{{s.about_intro_title}}</h2><p class="lead">{{s.intro}}</p>{% if s.about_intro_text2 %}<p class="lead" style="margin-top:14px">{{s.about_intro_text2}}</p>{% endif %}</div></div></section>
+<section class="white"><div class="wrap"><span class="eyebrow">Founder</span><h2>{{ s.founder_name }}</h2></div></section>
+<section class="white"><div class="wrap two" style="align-items:start"><div><span class="eyebrow">{{s.vision_eyebrow}}</span><h2>{{s.vision_title}}</h2><p class="lead">{{s.vision}}</p></div><div><span class="eyebrow">{{s.mission_eyebrow}}</span><h2>{{s.mission_title}}</h2><p class="lead">{{s.mission}}</p></div></div></section>
+<section><div class="wrap"><span class="eyebrow">{{s.philosophy_eyebrow}}</span><h2>{{s.philosophy_title}}</h2>{% for it in s.L('philosophy_items') %}<div class="block"><h2>{{it.title}}</h2><div>{{ it.text|paras }}</div></div>{% endfor %}</div></section>
+<section class="dark"><div class="wrap two"><div><span class="eyebrow">{{s.approach_eyebrow}}</span><h2>{{s.approach_title}}</h2><p class="lead">{{s.approach_text}}</p><br><a class="btn ghost" href="/manufacturing">See the process</a></div>
+<div><span class="eyebrow">{{s.commit_eyebrow}}</span><h2>{{s.commit_title}}</h2><p class="lead">{{s.commit_text}}</p><br><a class="btn ghost" href="/quality">Quality assurance</a></div></div></section>
+{{ cta(s.about_cta) }}{% endblock %}

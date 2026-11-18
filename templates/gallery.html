@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% from "_m.html" import hero, cta with context %}{% block title %}Gallery | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('Gallery', s.gallery_sub) }}
+<section><div class="wrap">{% set shown = namespace(n=0) %}{% for sec in sections if groups[sec.key] %}{% set shown.n = shown.n + 1 %}<span class="eyebrow">{{sec.title}}</span><div class="gal">{% for i in groups[sec.key] %}<figure><div class="ph"><img src="/static/uploads/{{i.image}}" alt="{{i.caption or sec.title}}" loading="lazy"></div>{% if i.caption %}<figcaption class="gcap">{{i.caption}}</figcaption>{% endif %}</figure>{% endfor %}</div>{% endfor %}
+{% if not shown.n %}<p class="lead">{{s.gallery_empty}}</p>{% endif %}</div></section>
+{{ cta(s.gallery_cta) }}{% endblock %}

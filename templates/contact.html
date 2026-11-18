@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% from "_m.html" import hero, enqform, wa with context %}{% block title %}Contact Us | {{ s.company_name or 'Protein Veda' }}{% endblock %}{% block body %}
+{{ hero('Contact Us', s.contact_sub) }}
+<section><div class="wrap two" style="align-items:start"><div class="cinfo"><span class="eyebrow">{{s.contact_page_eyebrow}}</span><h2>{{s.contact_page_title}}</h2><br>
+<p><b>Location</b>{{ s.address or 'Buxar, Bihar, India' }}</p>{% if s.phone %}<p><b>Phone</b><a href="tel:{{s.phone|replace(' ','')}}">{{s.phone}}</a></p>{% endif %}{% if s.email %}<p><b>Email</b><a href="mailto:{{s.email}}">{{s.email}}</a></p>{% endif %}
+{% if s.contact_hours %}<p><b>Working hours</b>{{s.contact_hours}}</p>{% endif %}<p><b>Website</b>proteinveda.co.in</p><div style="margin-top:22px">{{ wa(s.wa_message, 'btn wa', 'Chat on WhatsApp') }}</div></div>
+{{ enqform('/contact', '', ('I would like to enquire about ' ~ request.args.get('product') ~ '.') if request.args.get('product') else '') }}</div></section>
+<div class="map"><iframe title="Location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{% set mq = s.map_query or s.address or 'Buxar, Bihar, India' %}{% if mq.startswith('https://www.google.com/maps/embed') %}{{mq}}{% else %}https://www.google.com/maps?q={{ mq|urlencode }}&output=embed{% endif %}"></iframe></div>{% endblock %}

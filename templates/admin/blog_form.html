@@ -1,0 +1,6 @@
+{% extends "admin/layout.html" %}{% block title %}Article{% endblock %}{% block content %}
+<h1>{{'Edit' if p else 'New'}} Article</h1><p class="sub">Leave a blank line between paragraphs.</p>
+<form method="post" enctype="multipart/form-data" class="box"><input type="hidden" name="t" value="{{token}}"><label>Title *</label><input name="title" required value="{{p.title if p}}">
+<label>Short summary</label><textarea name="excerpt" rows="2">{{p.excerpt if p}}</textarea><label>Article text</label><textarea name="body" rows="14">{{p.body if p}}</textarea>
+<label>Cover image</label>{% if p and p.cover %}<img class="pv" src="/static/uploads/{{p.cover}}" alt=""><label class="ck"><input type="checkbox" name="remove_cover"> Remove current cover</label>{% endif %}<input type="file" name="cover" accept="image/*">
+<label class="ck"><input type="checkbox" name="published" {{'checked' if p and p.published}}> Published</label><div class="acts" style="margin-top:14px"><button class="btn">Save Article</button><a class="btn l" href="/admin/blog">Cancel</a></div></form>{% endblock %}
